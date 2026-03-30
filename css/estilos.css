@@ -1,0 +1,528 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  display: flex;
+  background-color: #1e1f23;
+  color: #e5e5e5;
+  min-height: 100vh;
+
+   user-select: none;
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Edge antiguo */
+}
+
+.cerrar{
+width: 65%;
+height: auto;
+  background-color: brown;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  text-align: center;
+  margin: auto;
+}
+
+.cerrar a{ text-align: center;
+ 
+}
+
+/* SIDEBAR DESKTOP */
+
+.sidebar {
+  width: 260px;
+  background: #15161a;
+  padding: 30px 20px;
+  height: 100vh;
+  position: fixed;
+  overflow-y: auto;
+}
+
+.sidebar h1 {
+  font-size: 18px;
+  margin-bottom: 40px;
+  line-height: 1.4;
+  color: #5cff4d;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #4da3ff;
+}
+.imagen-contenedor {
+  text-align: center;      /* centra la imagen */
+  margin: 30px 0;
+}
+
+.imagen-contenedor img {
+  width: 100%;             /* ocupa todo el ancho disponible */
+  max-width: 500px;        /* tamaño máximo en desktop */
+  height: auto;            /* mantiene proporción */
+  display: block;
+ 
+}
+
+.imagen-contenedor2 {
+  text-align: center;      /* centra la imagen */
+  margin: 30px 0;
+}
+
+.imagen-contenedor2 img {
+  width: 100%;             /* ocupa todo el ancho disponible */
+  max-width: 300px;        /* tamaño máximo en desktop */
+  height: auto;            /* mantiene proporción */
+  display: block;
+ 
+}
+
+.imagen-contenedor3 {
+  text-align: center;      /* centra la imagen */
+  margin: 30px 0;
+}
+
+.imagen-contenedor3 img {
+  width: 100%;             /* ocupa todo el ancho disponible */
+  max-width: 900px;        /* tamaño máximo en desktop */
+  height: auto;            /* mantiene proporción */
+  display: block;
+ 
+}
+
+/* CONTENIDO */
+
+.contenido {
+  margin-left: 260px;
+  padding: 40px;
+  width: 100%;
+}
+
+section {
+  margin-bottom: 60px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #4da3ff;
+}
+
+#clase1 p {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #ddeaff;
+  max-width: 800px;
+ 
+  padding: 0 1rem;
+  text-align: justify;
+}
+
+.pdf-container {
+  text-align: left;
+}
+
+.pdf-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+}
+
+.pdf-wrapper iframe {
+  width: 70%;
+  height: 85vh;
+  border: none; /* elimina marco */
+  display: block;
+}
+
+.tp {
+  background: #2a2c31;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* BOTONES */
+
+.boton {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #4da3ff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.boton:hover {
+  background: #2f80ed;
+}
+
+/* FORMULARIO */
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+input, textarea {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.encuentro-box {
+  background: #1f2a38;
+  padding: 25px;
+  border-left: 5px solid #4da3ff;
+  border-radius: 8px;
+  margin-bottom: 50px;
+}
+
+.encuentro-box h2 {
+  margin-bottom: 15px;
+}
+
+.encuentro-box p {
+  margin-bottom: 8px;
+}
+
+
+h1 {
+  margin-bottom: 40px;
+  color: #4da3ff;
+}
+
+h3 {
+  margin: 20px 0 10px;
+  font-weight: 500;
+  color: rgb(157, 183, 206);
+}
+
+/* Contenedor scroll móvil */
+.tabla-wrapper {
+  overflow-x: auto;
+  margin-bottom: 30px;
+}
+
+/* Tabla */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: #2a2c31;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabla th,
+.tabla td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #3a3d44;
+}
+
+.tabla th {
+  background: #1f2a38;
+  color: #4da3ff;
+  font-weight: 600;
+}
+
+.tabla tr:hover {
+  background: #33363d;
+}
+
+/* Estados */
+.presente {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.ausente {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.muro {
+  max-width: 700px;
+  margin: 40px auto;
+}
+
+.mensaje {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.mensaje h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+
+
+/* ====== Fuentes bibliográficas ====== */
+
+.fuentes-bibliograficas {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ccc;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #eacccc;
+}
+
+.fuentes-bibliograficas h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.fuentes-bibliograficas ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.fuentes-bibliograficas li {
+  margin-bottom: 0.8rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+/* pequeño guion tipográfico como viñeta elegante */
+.fuentes-bibliograficas li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #666;
+}
+
+ .menu-TP{
+  color: aliceblue;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  transition: 0.5s;
+
+}
+
+.menu-TP:hover{
+  color: rgb(112, 188, 255);
+
+
+
+
+}
+
+
+/* ====== MODAL====== */
+
+/* =========================
+   OVERLAY
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 18, 30, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem; /* importante para móviles */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.modal.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+   CAJA DEL MODAL
+========================= */
+.modal_contenido {
+  background: #f8f8f4;
+  color: #1c1c1c;
+  width: 100%;
+  max-width: 750px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(1.2rem, 3vw, 2.5rem);
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  transform: scale(0.96);
+  transition: transform 0.25s ease;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.modal.activo .modal_contenido {
+  transform: scale(1);
+}
+
+/* =========================
+   TITULO
+========================= */
+#modal_titulo {
+  margin: 0 0 1.5rem 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.6rem;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+#modal_texto h2 {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  margin-top: 1rem;
+}
+
+#modal_texto h3 {
+  font-size: clamp(1rem, 1.8vw, 1.1rem);
+  margin-top: 1rem;
+}
+
+#modal_texto p {
+  line-height: 1.6;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+}
+
+#modal_texto ul,
+#modal_texto ol {
+  margin-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+#modal_texto li {
+  margin-bottom: 0.5rem;
+}
+
+/* =========================
+   IMÁGENES RESPONSIVE
+========================= */
+#modal_texto img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+#cerrar_modal {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.7rem 1.4rem;
+  background: #1c1c1c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#cerrar_modal:hover {
+  background: #444;
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   MÓVILES PEQUEÑOS
+========================= */
+@media (max-width: 480px) {
+
+  .modal {
+    align-items: flex-start; /* mejor comportamiento en móvil */
+    padding: 0.5rem;
+  }
+
+  .modal_contenido {
+    max-height: 95vh;
+    border-radius: 10px;
+  }
+
+  #cerrar_modal {
+    width: 100%;
+  }
+}
+
+/* ---------------------- */
+/* 📱 RESPONSIVE */
+/* ---------------------- */
+
+@media (max-width: 900px) {
+
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .sidebar h1 {
+    margin-bottom: 20px;
+  }
+
+  ..sidebar ul {
+    display: flex;
+    flex-direction: column; /* 🔥 ESTA ES LA CLAVE */
+    gap: 15px;
+  }
+
+  .sidebar li {
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+
+  .contenido {
+    margin-left: 0;
+    padding: 25px;
+  }
+
+  form {
+    max-width: 100%;
+  }
+
+  .pdf-wrapper iframe {
+  width: 100%;
+  height: 85vh;}
+
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/ETMIV.ico" type="image/x-icon">
+  <title>LECTURA Y ESCRITURA MUSICAL I</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <h1>LECTURA Y ESCRITURA<br>MUSICAL I</h1>
+
+ <nav>
+      <ul>
+        <li><a href="aula.html">INTRODUCCIÓN, PROGRAMA Y CUADERNILLO DE ESTUDIO</a></li>
+      </ul>
+        <h3>Materiales por temas</h3>
+        <ul>
+        <li><a href="clase1.html">Ritmo</a></li>
+        </ul>
+        <h3>Información y comunicación</h3>
+        <ul>
+       <li><a href="asistencia.html">Fechas y calificaciones de exámenes</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+     <br><br>
+    <div class="cerrar"><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></div>
+  </aside>
+
+  <main class="contenido">
+   
+
+
+
+
+   <section id="bienvenida-lectura-escritura">
+  <h2>Bienvenidos a Lectura y Escritura Musical I</h2>
+
+  <p>
+    Este curso está pensado como un primer paso en el camino de la música: un espacio para descubrir,
+    comprender y empezar a dominar el lenguaje musical desde sus bases más esenciales.
+  </p>
+
+  <p>
+    A lo largo del año vamos a explorar cómo la música se organiza en el tiempo y en el espacio sonoro.
+    Aprenderemos a reconocer y escribir figuras, notas y silencios; a movernos dentro del pentagrama;
+    y a comprender cómo funcionan el pulso, el acento y los distintos tipos de compás.
+    Poco a poco, estos elementos dejarán de ser símbolos abstractos para convertirse en herramientas vivas de expresión.
+  </p>
+
+  <p>
+    También nos adentraremos en la escala mayor, sus sonidos y relaciones internas, desarrollando la capacidad
+    de escuchar, reconocer y pensar la música desde sus grados. Abordaremos distintos tipos de subdivisión,
+    formas de inicio y cierre de las frases, y el uso de ligaduras tanto expresivas como rítmicas.
+  </p>
+
+  <p>
+    Habrá lugar, además, para entender de dónde viene este lenguaje: conoceremos brevemente la historia de la
+    escritura musical y cómo evolucionaron las formas en que hoy leemos y escribimos música.
+  </p>
+
+  <p>
+    En una etapa más avanzada, incorporaremos compases aditivos, nociones básicas de acústica —como altura,
+    intensidad y timbre— y una primera aproximación al mundo de los armónicos. También veremos cómo la música
+    indica carácter, movimiento e intensidad.
+  </p>
+
+  <p>
+    Finalmente, comenzaremos a escuchar la música con mayor profundidad, reconociendo formas simples,
+    relaciones entre frases (antecedente y consecuente) y distintos tipos de textura musical,
+    como la monofonía, la homofonía y la polifonía.
+  </p>
+
+  <p>
+    No se requieren conocimientos previos: solo curiosidad, atención y ganas de escuchar.
+    La música es un lenguaje, y como todo lenguaje, se aprende paso a paso.
+    Este curso es una invitación a empezar ese recorrido.
+  </p>
+</section>
+
+      <section>
+      <h2>Programa</h2>
+      
+
+   
+
+<div class="pdf-wrapper">
+  <iframe 
+    src="pdf/introduccon/Programa.pdf" 
+    title="Programa de la materia">
+  </iframe>
+</div>
+      </section>
+
+      <section>
+      <h2>Cuadernillo de estudio</h2>
+      
+
+   
+
+<div class="pdf-wrapper">
+  <iframe 
+    src="pdf/introduccon/cuadernillo.pdf" 
+    title="Programa de la materia">
+  </iframe>
+</div>
+      </section>
+
+
+
+
+
+
+
+
+
+  </main>
+
+  <script>
+  if (localStorage.getItem("autenticado") !== "true") {
+    window.location.href = "index.html";
+  }
+</script>
+
+<script>
+  function cerrarSesion() {
+    localStorage.removeItem("autenticado");
+    window.location.href = "index.html";
+  }
+</script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

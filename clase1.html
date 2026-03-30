@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/ETMIV.ico" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.3/build/cjs/vexflow.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>LECTURA Y ESCRITURA MUSICAL I</title>
+  <link rel="stylesheet" href="css/estilos.css">
+
+  <style>
+  button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+  select { padding: 5px; font-size: 16px; }
+  .resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  #score {
+  overflow-x: auto;
+}
+
+  :root {
+    --bg: #0d0d0d;
+    --panel: #161616;
+    --border: #2a2a2a;
+    --accent: #e8ff47;
+    --accent2: #47ffe8;
+    --text: #f0f0f0;
+    --muted: #666;
+  }
+
+
+
+  header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+
+
+
+  .subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+  }
+
+  select {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    min-width: 120px;
+  }
+
+  select:hover, select:focus {
+    border-color: var(--accent);
+  }
+
+  button {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 11px 28px;
+    font-size: 0.85rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.15s;
+    align-self: flex-end;
+    text-transform: uppercase;
+  }
+
+  button:hover {
+    background: var(--accent2);
+    transform: translateY(-1px);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  #score {
+    width: 100%;
+    max-width: 1200px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 24px;
+    min-height: 120px;
+  }
+
+  #score svg {
+    display: block;
+    margin: 0 auto;
+  }
+
+  #error-msg {
+    color: #ff6b6b;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 12px;
+    display: none;
+  }
+
+  button#btn-play {
+    background: transparent;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+  }
+
+  button#btn-play:hover:not(:disabled) {
+    background: var(--accent2);
+    color: #000;
+  }
+
+  button#btn-play:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  button#btn-play.playing {
+    background: var(--accent2);
+    color: #000;
+  }
+
+  .nota-activa rect,
+  .nota-activa path {
+    fill: var(--accent) !important;
+  }
+
+  @media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  select {
+    width: 100%;
+  }
+}
+  </style>
+
+</head>
+
+<body>
+
+  <aside class="sidebar">
+     <h1>LECTURA Y ESCRITURA<br>MUSICAL I</h1>
+
+ <nav>
+      <ul>
+        <li><a href="aula.html">INTRODUCCIÓN, PROGRAMA Y CUADERNILLO DE ESTUDIO</a></li>
+      </ul>
+        <h3>Materiales por temas</h3>
+        <ul>
+        <li><a href="clase1.html">Ritmo</a></li>
+        </ul>
+        <h3>Información y comunicación</h3>
+        <ul>
+       <li><a href="asistencia.html">Fechas y calificaciones de exámenes</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+     <br><br>
+    <div class="cerrar"><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></div>
+  </aside>
+
+  <main class="contenido">
+  
+  <section id="clase1">
+      <h2>RITMO</h2>
+      <br>
+      <h3>Que es el ritmo</h3>
+      <p>"Nosotros hemos definido al Ritmo como aquél fenómeno
+que la conciencia reconoce como una formalización
+a través de la materia y cuyos contenidos
+específicos dependen de un orden particular del movimiento
+en el devenir de un tiempo. Cada instante
+de ese proceso es un acto único e irreversible y su
+imagen se hace presente por operaciones de organización
+y por asociaciones que se establecen a través
+de la memoria.</p>
+
+<p> Para simplificar, en primera instancia podemos definir
+el ritmo como la relación de entradas entre eventos, en
+el caso de la música, entre sonidos.</p>
+
+<p> Pero el ritmo no se basa solamente en las relaciones
+de entrada de los sonidos, sino que, como veremos
+luego, se establece una jerarquía entre sonidos acentuados
+y no acentuados, en consecuencia, también
+podemos definir al ritmo como una sucesión de acentos
+o fenómenos acentuados.</p>
+
+<p>Como es fácil inferir, estas simplificaciones sirven
+como referencia que nos permiten detectar particiones
+en el devenir del tiempo, estableciendo duraciones
+entre nota y nota, entre acento y acento, entre
+entrada y entrada de diferentes sonidos.</p>
+
+<p> Los intentos de formalización con sus correspondientes
+partes son arbitrarios y discutibles debido a que
+hemos tenido en cuenta solo los acentos dinámicos,
+y no los diferentes tipos de acentos que intervienen
+en la articulación de una unidad sintáctico-musical.
+Evidentemente, las posibles superposiciones que se
+pueden generar, como las ambigüedades que pueden
+surgir, deben ser consideradas. </p>
+
+<p>Pospongamos de momento dicho tema.</p>
+<br>
+<p>En principio para realizar un análisis rítmico se puede
+partir de:</p> 
+<br>
+<ul>
+  <li><p>Estructuras micro o unidades de sentido
+mínimo (ritmo primero, ritmos
+elementales)</p></li>
+  <li><p>Estructuras macro, que son aquéllas
+en las que se observa la permanencia
+de un determinado criterio durante el
+devenir rítmico (campos rítmicos)</p></li>
+</ul>
+<br>
+
+<p>Estos criterios extremos delimitan otros, intermedios,
+resultantes de las operaciones rítmicas que articulan
+el discurso musical.</p>
+
+<p>Para ejemplificar, haremos una analogía con la gramática,
+en la que también encontramos unidades de
+sentido tales como los fonemas, las palabras, las oraciones,
+las frases y unidades de sentido narrativo aún
+más grandes. Y si aludimos a la gramática es porque
+la organización rítmica (entre otras) comparte con
+ésta, hasta cierto punto, las mismas herramientas.</p>
+
+<p>Resumiendo, se puede decir que una obra está formada
+por unidades rítmicas de sentido mayor, determinantes
+de unidades formales grandes, en cuyo
+interior se pueden reconocer unidades intermedias
+que corresponden a diferentes niveles de organización.
+También es posible analizar o construir a partir
+de unidades más pequeñas (ritmos primeros y
+elementales) y, a partir de ellas, llegar a las unidades
+mayores por medio de las diferentes operaciones que
+pueden darse en el interior de una sección o parte,
+como las que se enuncian a continuación..."</p>
+      <br>
+    <br>
+<p><em>Sitta, Carmelo (2025). <strong>Elementos del ritmo musical</strong>. Buenos Aires, editorial Educa, Universidad Católica Argentina.</em></p>
+  </section>
+<br><br>
+
+    
+  <section id="clase1">
+  <h2>Definición en un sentido amplio</h2>
+  <p>
+    El ritmo puede entenderse, en un sentido amplio, como un orden en el movimiento. 
+    Esta idea, presente ya en el pensamiento de la filosofía antigua, concibe al ritmo 
+    como una forma de organización de aquello que cambia en el tiempo.
+  </p>
+  <p>
+    Desde esta perspectiva, el ritmo no es exclusivo de la música: aparece en fenómenos 
+    naturales, en el lenguaje, en el cuerpo y en múltiples formas de la experiencia humana.
+  </p>
+  <p>
+    En música, el ritmo es la organización del sonido en el tiempo, construida a partir 
+    de la duración de los sonidos y los silencios, y estructurada sobre una base de pulsos 
+    regulares.
+  </p>
+  </section>
+
+  <section id="clase1">
+  <h2>Definición de Pulso</h2>
+  <p>
+    El pulso es la sucesión regular de tiempos que se perciben de manera constante 
+    en una pieza musical. 
+    Funciona como una “base” sobre la cual se organizan los ritmos, 
+    y puede ser más o menos rápido según el Tempo musical.
+  </p>
+  </section>
+
+  <section id="clase1">
+  <h2>Unidad de tiempo</h2>
+  <p>
+    La unidad de tiempo es la figura musical que representa la duración de cada pulso 
+    dentro de una obra. Es, en otras palabras, la base sobre la cual se percibe la 
+    pulsación regular.
+  </p>
+
+  <p>
+    En los compases simples, la unidad de tiempo es una figura divisible en dos partes 
+    iguales (subdivisión binaria), como la negra en 2/4, 3/4 o 4/4.
+  </p>
+
+  <p>
+    En los compases compuestos, la unidad de tiempo es una figura con puntillo, 
+    ya que cada pulso se divide en tres partes iguales (subdivisión ternaria). 
+    Por ejemplo, en 6/8 la unidad de tiempo es la negra con puntillo.
+  </p>
+
+  <p>
+    La unidad de tiempo constituye la referencia interna del pulso en la obra. 
+    Cuando esta unidad se relaciona con una velocidad determinada (expresada en BPM, 
+    es decir, pulsos por minuto), se establece el <strong>TEMPO</strong>.
+  </p>
+  </section>
+
+
+  <section id="clase1">
+  <h2>Velocidad de pulso (Tempo)</h2>
+  <p>
+    La velocidad del pulso, o tempo, indica qué tan rápido o lento se ejecuta 
+    una obra musical.
+  </p>
+
+  <p>
+    Se mide en BPM (beats por minuto), es decir, la cantidad de pulsos que ocurren 
+    en un minuto.
+  </p>
+
+  <p>
+    Estos pulsos están determinados por la unidad de tiempo, que define qué figura 
+    musical representa cada pulso. 
+    De este modo, el tempo surge de la relación entre la unidad de tiempo y su 
+    velocidad de ejecución.
+  </p>
+  </section>
+
+
+  <section id="clase1">
+  <h2>Compás</h2>
+  <p>
+    El compás es la organización regular de los pulsos en grupos dentro de una obra musical. 
+    Estos grupos se repiten de manera constante y permiten estructurar el ritmo en el tiempo.
+  </p>
+
+  <p>
+    Cada compás está formado por una cantidad determinada de pulsos, definidos por la unidad 
+    de tiempo, y organizados según un patrón de acentuación (tiempos fuertes y débiles).
+  </p>
+
+  <p>
+    De este modo, el compás articula los elementos fundamentales del ritmo: toma el pulso 
+    como base, utiliza la unidad de tiempo para representarlo y se desarrolla a una velocidad 
+    determinada por el tempo.
+  </p>
+  </section>
+
+  <section id="clase1">
+  <h2>Compás simple y compuesto</h2>
+
+  <p>
+    Los compases se clasifican según la forma en que se subdivide cada pulso.
+  </p>
+
+  <h3>Compás simple</h3>
+  <p>
+    En los compases simples, cada pulso se divide en dos partes iguales 
+    (subdivisión binaria).
+  </p>
+  <p>
+    Ejemplos: 2/4, 3/4, 4/4.
+  </p>
+
+  <h3>Compás compuesto</h3>
+  <p>
+    En los compases compuestos, cada pulso se divide en tres partes iguales 
+    (subdivisión ternaria).
+  </p>
+  <p>
+    Ejemplos: 6/8, 9/8, 12/8.
+  </p>
+
+  <p>
+    Esta diferencia en la subdivisión modifica la percepción del ritmo y del pulso, 
+    generando sensaciones métricas distintas dentro de la música.
+  </p>
+  </section>
+
+  <section id="clase1">
+  <h2>Numerador y denominador del compás</h2>
+
+  <p>
+    El compás se representa mediante una fracción que aparece al comienzo de la obra. 
+    Esta fracción indica cómo se organiza el ritmo en el tiempo.
+  </p>
+
+  <p>
+    El numerador (número superior) indica la cantidad de pulsos que hay en cada compás.
+  </p>
+
+  <p>
+    El denominador (número inferior) indica qué figura musical representa la unidad 
+    de tiempo, es decir, qué figura equivale a un pulso.
+  </p>
+
+ <p>
+    El denominador (número inferior) indica qué figura musical representa a la figura que equivale
+    a un pulso.
+  </p>
+  </section>
+
+  <section id="clase1">
+  <h3>Relación entre figuras y denominador</h3>
+
+  <table border="0">
+    <thead>
+      <tr>
+        <th>Figura</th>
+        <th>Valor</th>
+        <th>Denominador</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Redonda</td>
+        <td>Unidad completa</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>Blanca</td>
+        <td>1/2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>Negra</td>
+        <td>1/4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>Corchea</td>
+        <td>1/8</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>Semicorchea</td>
+        <td>1/16</td>
+        <td>16</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Etc....</p>
+<br>
+<p>
+  Es importante tener en cuenta que el denominador no siempre indica la unidad de tiempo.
+  En los compases simples, suele coincidir con ella (por ejemplo, en 4/4 la negra es la unidad de tiempo).
+  Sin embargo, en los compases compuestos esto no ocurre: en un compás de 6/8, el denominador indica 
+  que hay seis corcheas en el compás, pero el pulso principal se organiza en dos unidades, 
+  cada una equivalente a una negra con puntillo.
+</p>
+  </section>
+
+  <section id="clase1">
+  <h2>Como se ve todo esto representado:</h2>
+  <div class="imagen-contenedor3">
+  <img src="img/clase1/ritmoCompasDef.jpg" alt="Representación">
+</div>
+
+  </section>
+
+   <h2>GENERADOR RÍTMICO PARA ESTUDIAR</h2>
+  <span class="subtitle">// percusión melódica</span>
+
+
+<div class="controls">
+  <div class="control-group">
+    <label>Compás</label>
+    <select id="compas">
+      <option value="4/4">4/4</option>
+      <option value="6/8">6/8</option>
+    </select>
+  </div>
+
+  <div class="control-group">
+    <label>Nivel</label>
+    <select id="nivel">
+      <option value="basico">Básico</option>
+      <option value="medio">Medio</option>
+    </select>
+  </div>
+
+  <div class="control-group">
+    <label>Tempo (BPM)</label>
+    <select id="bpm">
+      <option value="60">60</option>
+      <option value="72">72</option>
+      <option value="84" selected>84</option>
+      <option value="96">96</option>
+      <option value="108">108</option>
+      <option value="120">120</option>
+    </select>
+  </div>
+
+  <button onclick="generar()">Generar</button>
+  <button id="btn-play" onclick="togglePlay()" disabled>▶ Reproducir</button>
+</div>
+
+<div id="score"></div>
+<div id="error-msg"></div>
+
+  <section class="fuentes-bibliograficas"></section>
+ 
+
+
+
+
+    
+  </main>
+
+ <script>
+  if (localStorage.getItem("autenticado") !== "true") {
+    window.location.href = "index.html";
+  }
+  </script>
+
+  <script>
+  function cerrarSesion() {
+    localStorage.removeItem("autenticado");
+    window.location.href = "index.html";
+  }
+  </script>
+
+  <script>
+if (localStorage.getItem("autenticado") !== "true") {
+  window.location.href = "index.html";
+}
+
+function cerrarSesion() {
+  localStorage.removeItem("autenticado");
+  window.location.href = "index.html";
+}
+  </script>
+
+  <script>
+const VF = Vex.Flow;
+
+const celulasBásico44 = [
+  [{ dur:"q",  val:4, dotted:false }],
+  [{ dur:"q",  val:4, dotted:false }],
+  [{ dur:"q",  val:4, dotted:false }],
+  [{ dur:"8",  val:2, dotted:false }, { dur:"8",  val:2, dotted:false }],
+  [{ dur:"8",  val:2, dotted:false }, { dur:"8",  val:2, dotted:false }],
+  [{ dur:"16", val:1, dotted:false }, { dur:"16", val:1, dotted:false },
+   { dur:"16", val:1, dotted:false }, { dur:"16", val:1, dotted:false }],
+  [{ dur:"8",  val:2, dotted:false }, { dur:"16", val:1, dotted:false },
+   { dur:"16", val:1, dotted:false }],
+  [{ dur:"16", val:1, dotted:false }, { dur:"16", val:1, dotted:false },
+   { dur:"8",  val:2, dotted:false }],
+  [{ dur:"16", val:1, dotted:false }, { dur:"8",  val:2, dotted:false },
+   { dur:"16", val:1, dotted:false }],
+];
+
+const figBasico = [
+  { dur:"q", val:4, dotted:false },
+  { dur:"q", val:4, dotted:false },
+  { dur:"q", val:4, dotted:false },
+  { dur:"8", val:2, dotted:false },
+  { dur:"8", val:2, dotted:false },
+];
+
+const figMedio = [
+  { dur:"q",  val:4, dotted:false },
+  { dur:"8",  val:2, dotted:false },
+  { dur:"16", val:1, dotted:false },
+  { dur:"q",  val:6, dotted:true  },
+  { dur:"8",  val:3, dotted:true  },
+  { dur:"h",  val:8, dotted:false },
+];
+
+function crearNota(fig, esSilencio) {
+  const dur = esSilencio ? fig.dur + "r" : fig.dur;
+  const n = new VF.StaveNote({ keys: ["c/5"], duration: dur });
+  if (fig.dotted) n.addModifier(new VF.Dot(), 0);
+  return n;
+}
+
+function generarPulso(figuras, pulsoVal, probSilencio) {
+  let restante = pulsoVal;
+  const items = [];
+  while (restante > 0) {
+    const posibles = figuras.filter(f => f.val <= restante);
+    if (posibles.length === 0) break;
+    const fig = posibles[Math.floor(Math.random() * posibles.length)];
+    const esSilencio = Math.random() < probSilencio;
+    items.push({ nota: crearNota(fig, esSilencio), fig, esSilencio });
+    restante -= fig.val;
+  }
+  return items;
+}
+
+function generarPulsoCelula(probSilencio) {
+  const celula = celulasBásico44[Math.floor(Math.random() * celulasBásico44.length)];
+  return celula.map(fig => {
+    const esSilencio = celula.length > 1 && Math.random() < probSilencio;
+    return { nota: crearNota(fig, esSilencio), fig, esSilencio };
+  });
+}
+
+function generarCompas(nivel, compasStr) {
+  const figuras = nivel === "medio" ? figMedio : figBasico;
+  const probSilencio = nivel === "medio" ? 0.15 : 0.05;
+  const pulsosSizes = compasStr === "4/4" ? [4, 4, 4, 4] : [6, 6];
+  const usarCelulas = nivel === "basico" && compasStr === "4/4";
+  const pulsos = pulsosSizes.map(size =>
+    usarCelulas ? generarPulsoCelula(probSilencio) : generarPulso(figuras, size, probSilencio)
+  );
+  return { items: pulsos.flat(), pulsos };
+}
+
+function construirBeams(pulsos) {
+  const beams = [];
+  for (const pulso of pulsos) {
+    let grupo = [];
+    const flush = () => {
+      if (grupo.length >= 2) {
+        try { beams.push(new VF.Beam(grupo)); } catch(e) {}
+      }
+      grupo = [];
+    };
+    for (const item of pulso) {
+      const esBeameable = (item.fig.dur === "8" || item.fig.dur === "16") && !item.esSilencio;
+      esBeameable ? grupo.push(item.nota) : flush();
+    }
+    flush();
+  }
+  return beams;
+}
+
+function recolectarLigaduras(pulsos) {
+  const pares = [];
+  for (let i = 0; i < pulsos.length - 1; i++) {
+    const pulsoA = pulsos[i];
+    const pulsoB = pulsos[i + 1];
+    const ultima = pulsoA[pulsoA.length - 1];
+    const primera = pulsoB[0];
+    if (ultima && primera && !ultima.esSilencio && !primera.esSilencio && Math.random() < 0.30) {
+      pares.push({ notaA: ultima.nota, notaB: primera.nota });
+    }
+  }
+  return pares;
+}
+
+/* ======================
+   AUDIO CORREGIDO
+====================== */
+
+let audioCtx = null;
+let masterGain = null;
+let activeNodes = []; // Para trackear y liberar nodos
+let playbackTimer = null;
+let isPlaying = false;
+let secuenciaAudio = [];
+
+function getAudioCtx() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.connect(audioCtx.destination);
+  }
+  return audioCtx;
+}
+
+// Sonido con ataque percusivo y cuerpo sostenido
+function tocarGolpe(ctx, tiempo, durSeg, esSilencio) {
+  if (esSilencio) return;
+
+  const freq = 440; // La4 - sonido base sólido
+  
+  // OSCILADOR DE CUERPO (Triangular para más armónicos que Sine)
+  const osc = ctx.createOscillator();
+  osc.type = "triangle"; 
+  osc.frequency.setValueAtTime(freq, tiempo);
+  
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0, tiempo);
+  // Ataque rápido pero con cuerpo
+  gain.gain.linearRampToValueAtTime(0.4, tiempo + 0.01); 
+  // Sostenido: el decaimiento llega casi al final de la nota
+  gain.gain.exponentialRampToValueAtTime(0.01, tiempo + durSeg);
+
+  // ATAQUE (Click percusivo con ruido blanco)
+  const bufSize = ctx.sampleRate * 0.02; // 20ms
+  const noiseBuffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+  
+  const noiseSource = ctx.createBufferSource();
+  noiseSource.buffer = noiseBuffer;
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(0.3, tiempo);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, tiempo + 0.02);
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = "highpass";
+  filter.frequency.value = 1500;
+
+  // Conexiones
+  osc.connect(gain);
+  gain.connect(masterGain);
+  noiseSource.connect(filter);
+  filter.connect(noiseGain);
+  noiseGain.connect(masterGain);
+
+  osc.start(tiempo);
+  osc.stop(tiempo + durSeg);
+  noiseSource.start(tiempo);
+
+  // Guardamos referencias para limpieza
+  activeNodes.push(osc, noiseSource);
+}
+
+function construirSecuenciaAudio(compasesDataRef, bpm) {
+  const seg16 = (60 / bpm) / 4;
+  const seq = [];
+  for (const { items } of compasesDataRef) {
+    for (const item of items) {
+      let val = item.fig.val;
+      if (item.fig.dotted) val = Math.round(val * 1.5);
+      seq.push({ durSeg: val * seg16, esSilencio: item.esSilencio });
+    }
+  }
+  return seq;
+}
+
+function reproducir(secuencia) {
+  const ctx = getAudioCtx();
+  masterGain.gain.setTargetAtTime(1, ctx.currentTime, 0.02); // Abrir audio
+  const ahora = ctx.currentTime + 0.1;
+  let cursor = 0;
+
+  activeNodes = [];
+  for (const evento of secuencia) {
+    tocarGolpe(ctx, ahora + cursor, evento.durSeg, evento.esSilencio);
+    cursor += evento.durSeg;
+  }
+
+  playbackTimer = setTimeout(() => {
+    if (isPlaying) detener();
+  }, (cursor + 0.2) * 1000);
+}
+
+function togglePlay() {
+  isPlaying ? detener() : iniciarReproduccion();
+}
+
+function iniciarReproduccion() {
+  if (secuenciaAudio.length === 0) return;
+  isPlaying = true;
+  const btn = document.getElementById("btn-play");
+  btn.textContent = "■ Detener";
+  btn.classList.add("playing");
+  reproducir(secuenciaAudio);
+}
+
+function detener() {
+  isPlaying = false;
+  if (playbackTimer) clearTimeout(playbackTimer);
+  
+  // SOLUCIÓN AL STOP: Silenciar master y detener nodos
+  if (masterGain) {
+    masterGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+  }
+  
+  activeNodes.forEach(node => {
+    try { node.stop(); } catch(e) {}
+  });
+  activeNodes = [];
+
+  const btn = document.getElementById("btn-play");
+  if (btn) {
+    btn.textContent = "▶ Reproducir";
+    btn.classList.remove("playing");
+  }
+}
+
+let compasesDataGlobal = [];
+
+function generar() {
+  if (isPlaying) detener();
+  const nivel = document.getElementById("nivel").value;
+  const compasStr = document.getElementById("compas").value;
+  const div = document.getElementById("score");
+  div.innerHTML = "";
+
+  let numBeats, beatValue;
+  if (compasStr === "4/4") { numBeats = 4; beatValue = 4; }
+  else { numBeats = 6; beatValue = 8; }
+
+  const NUM_COMPASES = 10;
+  const COMPASES_POR_FILA = 5;
+  const ANCHO_STAVE = 200;
+  const ALTO_FILA = 120;
+
+  const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+  renderer.resize(1150, 350);
+  const context = renderer.getContext();
+  context.setStrokeStyle("#f0f0f0").setFillStyle("#f0f0f0").setLineWidth(1.5);
+
+  const compasesData = [];
+  for (let c = 0; c < NUM_COMPASES; c++) {
+    const fila = Math.floor(c / COMPASES_POR_FILA);
+    const col = c % COMPASES_POR_FILA;
+    const stave = new VF.Stave(20 + col * 220, 40 + fila * ALTO_FILA, ANCHO_STAVE);
+    stave.setNumLines(1);
+    if (c === 0) stave.addTimeSignature(compasStr);
+    stave.setContext(context).draw();
+
+    const { items, pulsos } = generarCompas(nivel, compasStr);
+    const notas = items.map(i => i.nota);
+    const beams = construirBeams(pulsos);
+    const ligsIntra = nivel === "medio" ? recolectarLigaduras(pulsos) : [];
+
+    compasesData.push({ items, pulsos, stave });
+    try {
+      const voice = new VF.Voice({ num_beats: numBeats, beat_value: beatValue }).setStrict(false);
+      voice.addTickables(notas);
+      new VF.Formatter().joinVoices([voice]).format([voice], ANCHO_STAVE - 40);
+      voice.draw(context, stave);
+      beams.forEach(b => b.setContext(context).draw());
+      for (const { notaA, notaB } of ligsIntra) {
+        new VF.StaveTie({ first_note: notaA, last_note: notaB }).setContext(context).draw();
+      }
+    } catch (e) {}
+  }
+
+  compasesDataGlobal = compasesData;
+  secuenciaAudio = construirSecuenciaAudio(compasesData, parseInt(document.getElementById("bpm").value));
+  document.getElementById("btn-play").disabled = false;
+}
+  </script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
