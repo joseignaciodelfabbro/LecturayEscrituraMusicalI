@@ -209,11 +209,14 @@
   </aside>
 
   <main class="contenido">
+
+
+  <br><br>   
   
   <section id="clase1">
       <h2>RITMO</h2>
-      <br>
-      <h3>Que es el ritmo</h3>
+   
+      <h2>Que es el ritmo</h2>
       <p>"Nosotros hemos definido al Ritmo como aquél fenómeno
 que la conciencia reconoce como una formalización
 a través de la materia y cuyos contenidos
@@ -293,7 +296,7 @@ como las que se enuncian a continuación..."</p>
     <br>
 <p><em>Sitta, Carmelo (2025). <strong>Elementos del ritmo musical</strong>. Buenos Aires, editorial Educa, Universidad Católica Argentina.</em></p>
   </section>
-<br><br>
+<br>
 
     
   <section id="clase1">
@@ -312,6 +315,53 @@ como las que se enuncian a continuación..."</p>
     de la duración de los sonidos y los silencios, y estructurada sobre una base de pulsos 
     regulares.
   </p>
+  </section>
+
+  <section id="clase1">
+    <h2>Las -Figuras Musicales-</h2>
+
+  <p>
+    Las <strong>figuras musicales</strong> son los símbolos que se utilizan en la escritura musical
+    para representar la <em>duración de los sonidos en el tiempo</em>.
+  </p>
+
+  <h3>Principales figuras</h3>
+  <ul>
+    <li><strong>Redonda</strong> – duración más larga</li>
+    <li><strong>Blanca</strong> – 1/2 de la redonda</li>
+    <li><strong>Negra</strong> – 1/2 de la blanca</li>
+    <li><strong>Corchea</strong> – 1/2 de la negra</li>
+    <li><strong>Semicorchea</strong> – 1/2 de la corchea</li>
+    <li><strong>Fusa</strong> – 1/2 de la semicorchea</li>
+    <li><strong>Semifusa</strong> – 1/2 de la fusa</li>
+  </ul>
+  <br>
+
+  <p>
+    Cada figura dura la mitad de la anterior, formando una subdivisión del tiempo musical.
+  </p>
+
+  <p>
+    La duración real depende del tempo (BPM), pero la relación entre las figuras se mantiene constante.
+  </p>
+  <br>
+  <h2>Cuadros: cómo se escriben las figuras musicales y sus relaciones de valores</h2>
+  <div class="imagen-contenedor2">
+    <img src="img/clase1/1.png" class="abrir-modal" alt="Representación">
+  </div>
+  <p>Para entender las columnas 4, 5 y 6, se recomienda leer toda esta sección de ritmo</p>
+
+<h3>Si tomamos como referencia de pulso a la negra, podemos leer el siguiente gráfico de la siguiente manera:</h3>
+  <div class="imagen-contenedor2">
+    <img src="img/clase1/3.png" class="abrir-modal" alt="Representación">
+  </div>
+
+
+<h3>Cuadro de equivalencias completo de redonda a semifusa:</h3>
+    <div class="imagen-contenedor2">
+    <img src="img/clase1/2.png" class="abrir-modal" alt="Representación">
+  </div>
+
   </section>
 
   <section id="clase1">
@@ -498,7 +548,7 @@ como las que se enuncian a continuación..."</p>
   <section id="clase1">
   <h2>Como se ve todo esto representado:</h2>
   <div class="imagen-contenedor3">
-  <img src="img/clase1/ritmoCompasDef.jpg" alt="Representación">
+  <img src="img/clase1/ritmoCompasDef.jpg" class="abrir-modal" alt="Representación">
 </div>
 
   </section>
@@ -551,6 +601,12 @@ como las que se enuncian a continuación..."</p>
 
     
   </main>
+
+
+  <div id="modalImagen" class="modal">
+  <span class="cerrar-modal">&times;</span>
+  <img class="modal-contenido" id="imgAmpliada">
+</div>
 
  <script>
   if (localStorage.getItem("autenticado") !== "true") {
@@ -873,6 +929,36 @@ function generar() {
   document.getElementById("btn-play").disabled = false;
 }
   </script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const modal = document.getElementById("modalImagen");
+  const modalImg = document.getElementById("imgAmpliada");
+  const cerrar = document.querySelector(".cerrar-modal");
+
+const imagenes = document.querySelectorAll(".abrir-modal");
+
+  imagenes.forEach(img => {
+    img.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = img.src;
+    });
+  });
+
+  cerrar.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+});
+</script>
 
 <script src="js/app.js"></script>
 
