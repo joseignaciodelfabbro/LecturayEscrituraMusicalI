@@ -181,6 +181,280 @@
     width: 100%;
   }
 }
+
+
+  </style>
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1612;
+    --sepia: #8b6914;
+    --gold: #c8962e;
+    --rust: #9b3a1a;
+    --sage: #4a6741;
+    --paper: #ede8dc;
+    --shadow: rgba(26, 22, 18, 0.15);
+  }
+
+
+
+
+
+
+
+
+  .card {
+    background: var(--paper);
+    border: 1.5px solid rgba(139,105,20,0.25);
+    border-radius: 4px;
+    box-shadow: 0 4px 32px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.6);
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem 2.5rem;
+    position: relative;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: -8px; bottom: -8px;
+    border: 1.5px solid rgba(139,105,20,0.12);
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  /* Clef selector */
+  .clef-toggle {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .clef-btn {
+    flex: 1;
+    max-width: 200px;
+    padding: 0.6rem 1rem;
+    border: 1.5px solid rgba(139,105,20,0.35);
+    background: transparent;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--sepia);
+    transition: all 0.2s;
+  }
+
+  .clef-btn.active {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  .clef-btn:hover:not(.active) {
+    background: rgba(26,22,18,0.06);
+  }
+
+  /* Staff container */
+  .staff-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  #staffSvg {
+    width: 100%;
+    max-width: 500px;
+    height: 220px;
+    overflow: visible;
+  }
+
+  /* Note buttons */
+  .note-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sepia);
+    margin-bottom: 0.75rem;
+    text-align: center;
+  }
+
+ .note-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.note-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(139,105,20,0.3);
+  background: transparent;
+  border-radius: 3px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.55rem, 2vw, 1rem);
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.18s;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  line-height: 1;
+}
+
+.note-btn span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  text-align: center;
+  overflow: visible;
+}
+  .note-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ink);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.18s;
+    z-index: 0;
+  }
+
+
+
+  .note-btn:hover::after { transform: scaleY(1); }
+  .note-btn:hover { color: var(--cream); border-color: var(--ink); }
+
+  /* Feedback */
+  .feedback {
+    min-height: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    text-align: center;
+    border-radius: 3px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .feedback.correct {
+    background: rgba(74,103,65,0.1);
+    border: 1px solid rgba(74,103,65,0.3);
+  }
+
+  .feedback.incorrect {
+    background: rgba(155,58,26,0.08);
+    border: 1px solid rgba(155,58,26,0.25);
+  }
+
+  .feedback .result-icon {
+    font-size: 1.3rem;
+  }
+
+  .feedback .result-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .feedback.correct .result-text { color: var(--sage); }
+  .feedback.incorrect .result-text { color: var(--rust); }
+
+  .feedback .correct-note {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--sepia);
+    text-transform: uppercase;
+  }
+
+  /* Next button */
+  .next-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.85rem;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .next-btn:hover { opacity: 0.82; }
+
+  /* Score */
+  .score-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(139,105,20,0.2);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sepia);
+  }
+
+  .score-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Ledger position label */
+  .position-hint {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(139,105,20,0.6);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    min-height: 1em;
+  }
+
+  @keyframes noteIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @media (max-width: 400px) {
+  .note-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+  }
+  .note-btn {
+    font-size: 1rem;
+  }
+}
+
+  .note-anim { animation: noteIn 0.35s cubic-bezier(.34,1.56,.64,1) forwards; }
   </style>
 
 </head>
@@ -461,6 +735,40 @@
   
 
   <section class="fuentes-bibliograficas"></section>
+
+
+  <h1>APP PARA IDENTIFICAR NOTAS EN EL PENTAGRAMA</h1>
+  <h3>Identifica la nota en el pentagrama</h3>
+
+  <div class="card">
+  <div class="clef-toggle">
+    <button class="clef-btn active" id="btnTreble" onclick="setClef('treble')">Clave de Sol</button>
+    <button class="clef-btn" id="btnBass" onclick="setClef('bass')">Clave de Fa</button>
+  </div>
+
+  <div class="staff-container">
+    <svg id="staffSvg" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+
+  <div class="position-hint" id="posHint"></div>
+
+  <div class="note-label">¿Qué nota es?</div>
+  <div class="note-grid" id="noteGrid"></div>
+
+  <div class="feedback" id="feedback">
+    <span class="result-icon" id="fbIcon"></span>
+    <span class="result-text" id="fbText"></span>
+    <span class="correct-note" id="fbCorrect"></span>
+  </div>
+
+  <button class="next-btn" onclick="nextNote()">→ Nueva nota</button>
+
+  <div class="score-bar">
+    <div>Aciertos <span class="score-val" id="scCorrect">0</span></div>
+    <div>Intentos <span class="score-val" id="scTotal">0</span></div>
+    <div>Racha <span class="score-val" id="scStreak">0</span></div>
+  </div>
+</div>
  
   </main>
 
@@ -469,6 +777,11 @@
   <span class="cerrar-modal">&times;</span>
   <img class="modal-contenido" id="imgAmpliada">
 </div>
+
+
+
+
+
 
  <script>
   if (localStorage.getItem("autenticado") !== "true") {
@@ -791,6 +1104,8 @@ function generar() {
   document.getElementById("btn-play").disabled = false;
 }
   </script>
+
+  <script src="js/appNotasPentagrama.js"></script>
 
 <script src="js/app.js"></script>
 <script src=js/modalImg.js></script>
