@@ -152,35 +152,23 @@ function drawLedgers(svg, ink) {
   const ledgerX1 = NOTE_X - ledgerW / 2;
   const ledgerX2 = NOTE_X + ledgerW / 2;
 
-  // Below staff: line 1 = step -4. Ledger lines at even steps below -4
-  if (step <= -5) {
-    for (let s = -6; s >= step; s -= 2) {
-      if (s % 2 === 0) { // on a line
-        const y = stepToY(s);
-        addLedger(svg, ledgerX1, ledgerX2, y, ink);
-      }
-    }
-    // also -6 if step is -5 (note in space below ledger)
-    if (step === -5) {
-      addLedger(svg, ledgerX1, ledgerX2, stepToY(-6), ink);
+  // Abajo: recién desde step -6 en adelante
+  if (step <= -6) {
+    // Si la nota está en línea (par), dibujar hasta ahí
+    // Si está en espacio (impar), dibujar hasta el par inferior
+    const hasta = step % 2 === 0 ? step : step - 1;
+    for (let s = -6; s >= hasta; s -= 2) {
+      addLedger(svg, ledgerX1, ledgerX2, stepToY(s), ink);
     }
   }
 
-  // Above staff: line 5 = step +4. Ledger lines at even steps above +4
-  if (step >= 5) {
-    for (let s = 6; s <= step; s += 2) {
-      if (s % 2 === 0) {
-        const y = stepToY(s);
-        addLedger(svg, ledgerX1, ledgerX2, y, ink);
-      }
-    }
-    if (step === 5) {
-      addLedger(svg, ledgerX1, ledgerX2, stepToY(6), ink);
+  // Arriba: recién desde step +6 en adelante  
+  if (step >= 6) {
+    const hasta = step % 2 === 0 ? step : step - 1;
+    for (let s = 6; s <= hasta; s += 2) {
+      addLedger(svg, ledgerX1, ledgerX2, stepToY(s), ink);
     }
   }
-
-  // C4 in treble / C3 in bass is on ledger (step depends)
-  // Middle C: treble step -6 = ledger below. Already handled above.
 }
 
 function addLedger(svg, x1, x2, y, ink) {
