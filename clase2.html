@@ -972,7 +972,78 @@
 <div class="imagen-contenedor2">
   <img src="img/clase2/intervalos.png" class="abrir-modal" alt="Representación">
 </div>
+
+<h3>Relación de los intervalos con cantidad de semitonos</h3>
+
+<div class="imagen-contenedor2">
+  <img src="img/clase2/semitonosIntervalo.png" class="abrir-modal" alt="Representación">
+</div>
     </section>
+
+
+<section>
+<h2>Práctica de Intervalos</h2>
+<p>¿Qué intervalo es?</p>
+
+<div id="preguntaVisual" style="font-size: 24px; margin: 20px;"></div>
+
+<select id="respuestaVisual">
+  <option value="">Seleccionar...</option>
+   <option>Segunda menor</option>
+  <option>Segunda Mayor</option>
+  <option>Tercera menor</option>
+  <option>Tercera Mayor</option>
+  <option>Cuarta justa</option>
+  <option>Cuarta aumentada</option>
+  <option>Quinta disminuida</option>
+  <option>Quinta justa</option>
+  <option>Sexta menor</option>
+  <option>Sexta Mayor</option>
+  <option>Séptima menor</option>
+  <option>Séptima Mayor</option>
+      
+</select>
+
+<br>
+<button onclick="verificarVisual()">Verificar</button>
+<button onclick="nuevaPreguntaVisual()">Nueva</button>
+
+<div class="resultado" id="resultadoVisual"></div>
+</section>
+
+<section>
+<h2>Entrenamiento Auditivo de Intervalos melódicos ascendentes</h2>
+
+<p>Opciones de intervalos a escuchar:</p>
+<br>
+<select id="modo">
+  <option value="set1">2m - 3M - 4J - 7m</option>
+  <option value="set2">2M - 3m - 5J - 7M</option>
+  <option value="all">Todos</option>
+</select>
+
+<br>
+<button onclick="nuevaPreguntaAudio()">Escuchar intervalo</button>
+
+<br>
+<select id="respuestaAudio">
+  <option value="">Seleccionar respuesta</option>
+  <option>2m</option>
+  <option>2M</option>
+  <option>3m</option>
+  <option>3M</option>
+  <option>4J</option>
+  <option>4aum</option>
+  <option>5J</option>
+  <option>7m</option>
+  <option>7M</option>
+</select>
+
+<br>
+<button onclick="verificarAudio()">Verificar</button>
+
+<div class="resultado" id="resultadoAudio"></div>
+</section>
  
   </main>
 
@@ -1309,7 +1380,140 @@ function generar() {
 }
   </script>
 
+  // ===== INTERVALOS Script =====
+
+       <script>
+
+// ===== VISUAL =====
+const intervalosVisual = [
+  { n1: "Do", n2: "Mi", nombre: "Tercera Mayor" },
+  { n1: "Do", n2: "Mib", nombre: "Tercera menor" },
+  { n1: "Do", n2: "Sol", nombre: "Quinta justa" },
+  { n1: "Do", n2: "Fa", nombre: "Cuarta justa" },
+  { n1: "Do", n2: "Re", nombre: "Segunda Mayor" },
+  { n1: "Do", n2: "Reb", nombre: "Segunda menor" },
+  { n1: "Do", n2: "Fa#", nombre: "Cuarta aumentada" },
+  { n1: "Do", n2: "Solb", nombre: "Quinta disminuida" },
+  { n1: "Do", n2: "Lab", nombre: "Sexta menor" },
+  { n1: "Do", n2: "La", nombre: "Sexta Mayor" },
+  { n1: "Do", n2: "Sib", nombre: "Séptima menor" },
+  { n1: "Do", n2: "Si", nombre: "Séptima Mayor" }
+];
+
+let actualVisual = null;
+
+function nuevaPreguntaVisual() {
+  actualVisual = intervalosVisual[Math.floor(Math.random() * intervalosVisual.length)];
+  document.getElementById("preguntaVisual").innerText = actualVisual.n1 + " - " + actualVisual.n2;
+  document.getElementById("resultadoVisual").innerText = "";
+  document.getElementById("respuestaVisual").value = "";
+}
+
+function verificarVisual() {
+  const resp = document.getElementById("respuestaVisual").value;
+  if (!resp) return;
+
+  if (resp === actualVisual.nombre) {
+    document.getElementById("resultadoVisual").innerText = "✔ Correcto";
+  } else {
+    document.getElementById("resultadoVisual").innerText = "✘ Incorrecto. Era: " + actualVisual.nombre;
+  }
+}
+
+// ===== AUDIO =====
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let ctx = null;
+
+function initAudio() {
+  if (!ctx) ctx = new AudioContext();
+}
+
+const intervalosAudio = {
+  "2m": 1,
+  "2M": 2,
+  "3m": 3,
+  "3M": 4,
+  "4J": 5,
+  "4aum":6,
+  "5J": 7,
+  "7m": 10,
+  "7M": 11
+};
+
+const sets = {
+  set1: ["2m","3M","4J","7m"],
+  set2: ["2M","3m","5J","7M"],
+  all: Object.keys(intervalosAudio)
+};
+
+let actualAudio = null;
+let rootFreq = 261.63;
+
+function playNote(freq, time) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = "triangle";
+  osc.frequency.value = freq;
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  gain.gain.setValueAtTime(0.001, time);
+  gain.gain.exponentialRampToValueAtTime(0.5, time + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 1);
+
+  osc.start(time);
+  osc.stop(time + 1);
+}
+
+function nuevaPreguntaAudio() {
+  initAudio();
+
+  const modo = document.getElementById("modo").value;
+  const lista = sets[modo];
+
+  actualAudio = lista[Math.floor(Math.random() * lista.length)];
+
+  const semitonos = intervalosAudio[actualAudio];
+  const freq2 = rootFreq * Math.pow(2, semitonos / 12);
+
+  const now = ctx.currentTime;
+
+  playNote(rootFreq, now);
+  playNote(freq2, now + 1);
+
+  document.getElementById("resultadoAudio").innerText = "";
+  document.getElementById("respuestaAudio").value = "";
+}
+
+// 🔥 Esto arregla el problema típico de audio en navegadores
+document.body.addEventListener("click", () => {
+  if (ctx && ctx.state === "suspended") {
+    ctx.resume();
+  }
+});
+
+function verificarAudio() {
+  const resp = document.getElementById("respuestaAudio").value;
+  if (!resp) return;
+
+  if (resp === actualAudio) {
+    document.getElementById("resultadoAudio").innerText = "✔ Correcto";
+  } else {
+    document.getElementById("resultadoAudio").innerText = "✘ Incorrecto. Era: " + actualAudio;
+  }
+}
+
+// iniciar
+nuevaPreguntaVisual();
+
+       </script>
+
   <script src="js/appNotasPentagrama.js"></script>
+
+
+
 
 <script src="js/app.js"></script>
 <script src=js/modalImg.js></script>
