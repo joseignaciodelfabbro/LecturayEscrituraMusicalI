@@ -481,6 +481,30 @@ h3 {
 }
 
 
+.submenu {
+ display: flex;
+ padding: 1rem;
+ 
+}
+
+.submenu li{
+  padding: 2rem;
+}
+
+.submenus a{
+  text-decoration: none;
+   margin: 0.5rem;
+   color: #b3e9ff;
+   font-size: 1rem;
+   transition: 0.5s;
+
+}
+
+.submenus a:hover{
+   color: #d4f3ff;
+  }
+
+
 
 
 
