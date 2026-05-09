@@ -529,6 +529,23 @@ h3 {
   }
 }
 
+/* Desktop: hamburger oculto */
+.hamburger {
+  display: none;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 20px 0;
+}
+
+/* ---------------------- */
+/* 📱 RESPONSIVE */
+/* ---------------------- */
+
+
 /* ---------------------- */
 /* 📱 RESPONSIVE */
 /* ---------------------- */
@@ -543,22 +560,58 @@ h3 {
     position: relative;
     width: 100%;
     height: auto;
-    padding: 20px;
+    padding: 0;
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
   }
 
   .sidebar h1 {
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    font-size: 15px;
   }
 
-  .sidebar ul {
+  .hamburger {
     display: flex;
-    flex-direction: column; /* 🔥 ESTA ES LA CLAVE */
-    gap: 15px;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 6px;
   }
 
-  .sidebar li {
-    margin: 0;
-    margin-bottom: 1rem;
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #5cff4d;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .hamburger.abierto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.abierto span:nth-child(2) { opacity: 0; }
+  .hamburger.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-contenido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    padding: 0 20px;
+  }
+
+  .nav-contenido.abierto {
+    max-height: 500px;
+    padding: 10px 20px 20px;
+  }
+
+  .cerrar {
+    margin: 15px auto;
   }
 
   .contenido {
@@ -571,7 +624,8 @@ h3 {
   }
 
   .pdf-wrapper iframe {
-  width: 100%;
-  height: 85vh;}
-
+    width: 100%;
+    height: 85vh;
+  }
 }
+
