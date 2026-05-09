@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/estilos.css">
 
   <style>
-  button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+.btn-herramienta { padding: 10px 20px; margin: 10px; font-size: 16px; }
   select { padding: 5px; font-size: 16px; }
   .resultado { margin-top: 20px; font-weight: bold; }
   </style>
@@ -94,30 +94,30 @@
     border-color: var(--accent);
   }
 
-  button {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 11px 28px;
-    font-size: 0.85rem;
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.15s;
-    align-self: flex-end;
-    text-transform: uppercase;
-  }
+  /* DESPUÉS — agregá la clase .btn-herramienta a todos */
+.btn-herramienta {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 11px 28px;
+  font-size: 0.85rem;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s;
+  align-self: flex-end;
+  text-transform: uppercase;
+}
 
-  button:hover {
-    background: var(--accent2);
-    transform: translateY(-1px);
-  }
+.btn-herramienta:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
 
-  button:active {
-    transform: translateY(0);
-  }
-
+.btn-herramienta:active {
+  transform: translateY(0);
+}
   #score {
     width: 100%;
     max-width: 1200px;
@@ -173,7 +173,7 @@
     align-items: stretch;
   }
 
-  button {
+.btn-herramienta {
     width: 100%;
   }
 
@@ -462,26 +462,33 @@
 <body>
 
   <aside class="sidebar">
-     <h1>LECTURA Y ESCRITURA<br>MUSICAL I</h1>
+  <div class="sidebar-header">
+    <h1>LECTURA Y ESCRITURA<br>MUSICAL I</h1>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 
-  <nav>
+  <div class="nav-contenido" id="nav-contenido">
+    <nav>
       <ul>
         <li><a href="aula.html">INTRODUCCIÓN, PROGRAMA Y CUADERNILLO DE ESTUDIO</a></li>
       </ul>
-        <h3>Materiales por temas</h3>
-        <ul>
+      <h3>Materiales por temas</h3>
+      <ul>
         <li><a href="clase1.html">Ritmo</a></li>
-         <li><a href="clase2.html">Alturas musicales</a></li>
-        </ul>
-        <h3>Información y comunicación</h3>
-        <ul>
-       <li><a href="asistencia.html">Fechas y calificaciones de exámenes</a></li>
+        <li><a href="clase2.html">Alturas musicales</a></li>
+      </ul>
+      <h3>Información y comunicación</h3>
+      <ul>
+        <li><a href="asistencia.html">Fechas y calificaciones de exámenes</a></li>
         <li><a href="contacto.html">Contacto</a></li>
       </ul>
-  </nav>
-     <br><br>
+    </nav>
+    <br><br>
     <div class="cerrar"><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></div>
-  </aside>
+  </div>
+</aside>
 
   <main class="contenido">
 
@@ -1026,8 +1033,9 @@
 </select>
 
 <br>
-<button onclick="verificarVisual()">Verificar</button>
-<button onclick="nuevaPreguntaVisual()">Nueva</button>
+<button class="btn-herramienta" onclick="verificarVisual()">Verificar</button>
+
+<button class="btn-herramienta" onclick="nuevaPreguntaVisual()">Nueva</button>
 
 <div class="resultado" id="resultadoVisual"></div>
 </section>
@@ -1044,7 +1052,7 @@
 </select>
 
 <br>
-<button onclick="nuevaPreguntaAudio()">Escuchar intervalo</button>
+<button class="btn-herramienta" onclick="nuevaPreguntaAudio()">Escuchar intervalo</button>
 
 <br>
 <select id="respuestaAudio">
@@ -1061,7 +1069,7 @@
 </select>
 
 <br>
-<button onclick="verificarAudio()">Verificar</button>
+<button class="btn-herramienta" onclick="verificarAudio()">Verificar</button>
 
 <div class="resultado" id="resultadoAudio"></div>
 
@@ -1605,9 +1613,10 @@ nuevaPreguntaVisual();
 
 
 
-
+<script src="js/hamburguesa.js"></script>
 <script src="js/app.js"></script>
 <script src=js/modalImg.js></script>
+
 
 </body>
 </html>
