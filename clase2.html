@@ -440,6 +440,21 @@
     min-height: 1em;
   }
 
+
+  .botonEscala a{
+   color: #00b167; 
+   text-decoration: none;
+ 
+      transition: 0.5s;
+  }
+
+   .botonEscala a:hover{
+    color: #95ffc1;
+    cursor: pointer;
+ 
+   }
+  
+
   @keyframes noteIn {
     from { opacity: 0; transform: scale(0.5); }
     to   { opacity: 1; transform: scale(1); }
@@ -1108,6 +1123,15 @@
     <div class="imagen-contenedor3">
   <img src="img/clase2/Mayor.jpg" class="abrir-modal" alt="Representación">
 </div>
+
+<div class="botonEscala">
+  <a href="#" onclick="event.preventDefault(); document.getElementById('miAudioM').play()">ESCUCHE LA ESCALA MAYOR NATURAL</a>
+</div>
+<audio id="miAudioM">
+  <source src="audio/Mayor.mp3" type="audio/mpeg">
+</audio>
+<br>
+
   <p>
     Esta disposición genera un fuerte sentido de reposo en la tónica y una
     clara atracción de la sensible (el VII grado que en Do Mayor es el Si) hacia ella, siendo la base principal del sistema tonal occidental.
@@ -1132,6 +1156,17 @@
     <div class="imagen-contenedor3">
   <img src="img/clase2/menor.jpg" class="abrir-modal" alt="Representación">
 </div>
+
+<div class="botonEscala">
+  <a href="#" onclick="event.preventDefault(); document.getElementById('miAudiom').play()">
+    ESCUCHE LA ESCALA MENOR ANTIGUA
+  </a>
+
+  <audio id="miAudiom">
+    <source src="audio/menorAntigua.mp3" type="audio/mpeg">
+  </audio>
+</div>
+<br>
   <p>
     Se denomina “antigua” porque corresponde a la forma original de la escala
     menor antes de las modificaciones que dieron origen a la menor armónica y
