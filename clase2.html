@@ -1067,9 +1067,10 @@
 </select>
 
 <br>
-<button class="btn-herramienta" onclick="nuevaPreguntaAudio()">Escuchar intervalo</button>
+<button class="btn-herramienta" id="btn-escuchar" onclick="escucharIntervalo()">Escuchar intervalo</button>
+<span id="contadorEscuchas" style="font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--muted); margin-left:10px;"></span>
 
-<br>
+<br><br>
 <select id="respuestaAudio">
   <option value="">Seleccionar respuesta</option>
   <option>2m</option>
@@ -1084,7 +1085,8 @@
 </select>
 
 <br>
-<button class="btn-herramienta" onclick="verificarAudio()">Verificar</button>
+<button class="btn-herramienta" id="btn-verificar" onclick="verificarAudio()" disabled>Arriesgar</button>
+<button class="btn-herramienta" id="btn-siguiente" onclick="nuevaPreguntaAudio()" style="display:none;">Siguiente →</button>
 
 <div class="resultado" id="resultadoAudio"></div>
 
@@ -1582,6 +1584,8 @@ const sets = {
 
 let actualAudio = null;
 let rootFreq = 261.63;
+let escuchasRestantes = 3;
+let yaArriesco = false;
 
 function playNote(freq, time) {
   const osc = ctx.createOscillator();
@@ -1601,6 +1605,16 @@ function playNote(freq, time) {
   osc.stop(time + 1);
 }
 
+function actualizarContadorEscuchas() {
+  const el = document.getElementById("contadorEscuchas");
+  if (!actualAudio) { el.innerText = ""; return; }
+  if (escuchasRestantes > 0) {
+    el.innerText = escuchasRestantes === 3 ? "(podés escuchar hasta 3 veces)" : `(${escuchasRestantes} escucha${escuchasRestantes > 1 ? 's' : ''} restante${escuchasRestantes > 1 ? 's' : ''})`;
+  } else {
+    el.innerText = "(sin escuchas restantes)";
+  }
+}
+
 function nuevaPreguntaAudio() {
   initAudio();
 
@@ -1608,17 +1622,44 @@ function nuevaPreguntaAudio() {
   const lista = sets[modo];
 
   actualAudio = lista[Math.floor(Math.random() * lista.length)];
+  escuchasRestantes = 3;
+  yaArriesco = false;
 
-  const semitonos = intervalosAudio[actualAudio];
-  const freq2 = rootFreq * Math.pow(2, semitonos / 12);
-
-  const now = ctx.currentTime;
-
-  playNote(rootFreq, now);
-  playNote(freq2, now + 1);
-
+  // Resetear UI
   document.getElementById("resultadoAudio").innerText = "";
   document.getElementById("respuestaAudio").value = "";
+  document.getElementById("respuestaAudio").disabled = false;
+  document.getElementById("btn-verificar").disabled = false;
+  document.getElementById("btn-escuchar").disabled = false;
+  document.getElementById("btn-siguiente").style.display = "none";
+
+  reproducirIntervalo();
+  escuchasRestantes--;
+  actualizarContadorEscuchas();
+}
+
+function escucharIntervalo() {
+  if (!actualAudio) {
+    nuevaPreguntaAudio();
+    return;
+  }
+  if (escuchasRestantes <= 0 || yaArriesco) return;
+  initAudio();
+  reproducirIntervalo();
+  escuchasRestantes--;
+  actualizarContadorEscuchas();
+  if (escuchasRestantes === 0) {
+    document.getElementById("btn-escuchar").disabled = true;
+  }
+}
+
+function reproducirIntervalo() {
+  if (ctx.state === "suspended") ctx.resume();
+  const semitonos = intervalosAudio[actualAudio];
+  const freq2 = rootFreq * Math.pow(2, semitonos / 12);
+  const now = ctx.currentTime;
+  playNote(rootFreq, now);
+  playNote(freq2, now + 1);
 }
 
 // 🔥 Esto arregla el problema típico de audio en navegadores
@@ -1630,13 +1671,25 @@ document.body.addEventListener("click", () => {
 
 function verificarAudio() {
   const resp = document.getElementById("respuestaAudio").value;
-  if (!resp) return;
+  if (!resp || !actualAudio || yaArriesco) return;
 
+  yaArriesco = true;
+
+  // Bloquear escuchar y arriesgar, pero mostrar "Siguiente"
+  document.getElementById("respuestaAudio").disabled = true;
+  document.getElementById("btn-verificar").disabled = true;
+  document.getElementById("btn-escuchar").disabled = true;
+  document.getElementById("btn-siguiente").style.display = "inline-block";
+
+  const resultado = document.getElementById("resultadoAudio");
   if (resp === actualAudio) {
-    document.getElementById("resultadoAudio").innerText = "✔ Correcto";
+    resultado.innerText = "✔ Correcto";
+    resultado.style.color = "#4aff8c";
   } else {
-    document.getElementById("resultadoAudio").innerText = "✘ Incorrecto. Era: " + actualAudio;
+    resultado.innerText = "✘ Incorrecto. Era: " + actualAudio;
+    resultado.style.color = "#ff6b6b";
   }
+  document.getElementById("contadorEscuchas").innerText = "";
 }
 
 // iniciar
