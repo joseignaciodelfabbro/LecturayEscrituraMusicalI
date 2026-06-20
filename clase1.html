@@ -148,8 +148,6 @@
   }
 
 
-
-  /* DESPUÉS — agregá la clase .btn-herramienta a todos */
 .btn-herramienta {
   background: var(--accent);
   color: #000;
@@ -596,6 +594,9 @@ como las que se enuncian a continuación..."</p>
   <div class="control-group">
     <label>Tempo (BPM)</label>
     <select id="bpm">
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
       <option value="60">60</option>
       <option value="72">72</option>
       <option value="84" selected>84</option>
@@ -671,7 +672,7 @@ const celulasBásico44 = [
 ];
 
 const figBasico = [
-  { dur:"q", val:4, dotted:false },
+  { dur:"h", val:8, dotted:false },
   { dur:"q", val:4, dotted:false },
   { dur:"q", val:4, dotted:false },
   { dur:"8", val:2, dotted:false },
@@ -711,7 +712,9 @@ function generarPulso(figuras, pulsoVal, probSilencio) {
 function generarPulsoCelula(probSilencio) {
   const celula = celulasBásico44[Math.floor(Math.random() * celulasBásico44.length)];
   return celula.map(fig => {
-    const esSilencio = celula.length > 1 && Math.random() < probSilencio;
+    // En básico, silencios solo de blanca, negra o corchea (no semicorchea)
+    const puedeSerSilencio = fig.dur !== "16" && celula.length > 1;
+    const esSilencio = puedeSerSilencio && Math.random() < probSilencio;
     return { nota: crearNota(fig, esSilencio), fig, esSilencio };
   });
 }
