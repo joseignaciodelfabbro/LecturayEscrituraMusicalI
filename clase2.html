@@ -522,7 +522,7 @@
   <li><a href="#appsIntervalos">APPS DE EJERCITACIÓN DE INTERVALOS</a></li>
   <li><a href="#escalas">ESCALAS</a></li>
    <li><a href="#acordes">LA ESCALA MAYOR ACORDES TRÌADAS Y GRADOS</a></li>
-    <li><a href="#armaduras">ARMADURAS DE CLAVE DE ESCALAS MAYORES</a></li>
+    <li><a href="#armaduras">ARMADURAS DE CLAVE DE ESCALAS MAYORES Y MENORES</a></li>
   </ul>
   </div>
   <br>
@@ -1515,12 +1515,138 @@
     </svg>
   </div>
   <br>
+  <br>
+
+
+
+</section>
+
+<section class="cm-seccion" id="claves-menores">
+
+  <style>
+    .cm-seccion {
+      --cm-fondo: #1e1f23;
+      --cm-panel: #26282e;
+      --cm-borde: #3a3d45;
+      --cm-texto: #e6e8ec;
+      --cm-suave: #a9aeb8;
+      --cm-acento: #4da3ff;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 24px;
+      background: var(--cm-fondo);
+      color: var(--cm-texto);
+      border-radius: 10px;
+      line-height: 1.6;
+      font-family: Arial, sans-serif;
+    }
+    .cm-seccion h2 { margin-top: 0; color: var(--cm-acento); }
+    .cm-seccion h3 { margin: 28px 0 8px; color: var(--cm-texto); }
+    .cm-seccion p  { margin: 8px 0; }
+    .cm-seccion .cm-caja {
+      background: var(--cm-panel);
+      border-left: 4px solid var(--cm-acento);
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 14px 0;
+    }
+    .cm-seccion .cm-ejemplo { color: var(--cm-suave); font-size: 0.95em; }
+    .cm-seccion .cm-scroll { overflow-x: auto; margin: 14px 0; }
+    .cm-seccion table {
+      width: 100%;
+      min-width: 420px;
+      border-collapse: collapse;
+    }
+    .cm-seccion th, .cm-seccion td {
+      border: 1px solid var(--cm-borde);
+      padding: 8px;
+      text-align: center;
+    }
+    .cm-seccion thead { background: var(--cm-panel); }
+    .cm-seccion strong { color: var(--cm-acento); }
+  </style>
+
+  <h2>Armaduras de las escalas menores</h2>
+
+  <p>
+    Ya vimos cómo se arman las armaduras mayores. Las menores no necesitan un sistema nuevo:
+    cada tonalidad menor <strong>comparte la armadura</strong> con una mayor.
+    Hay dos caminos para encontrarla.
+  </p>
+
+    <h3>1. De la mayor a su relativa menor</h3>
+  <p>
+    La relativa menor de una mayor está una <strong>tercera menor por debajo</strong> de su tónica
+    (equivale al <strong>sexto grado</strong> de la escala mayor). La armadura de la menor es la de esa mayor.
+  </p>
+  <div class="cm-caja">
+    <p><strong>Pasos:</strong> bajá una tercera menor desde la tónica → obtenés la relativa menor → usá la misma armadura.</p>
+    <p class="cm-ejemplo">
+      Sol mayor → tercera menor abajo: Mi → Sol mayor tiene 1♯ → <strong>Mi menor tiene 1♯ (Fa♯)</strong>.<br>
+      Mi♭ mayor → tercera menor abajo: Do → Mi♭ mayor tiene 3♭ → <strong>Do menor tiene 3♭ (Si♭, Mi♭, La♭)</strong>.
+    </p>
+  </div>
+
+  <h3>2. De la menor a su relativa mayor</h3>
+  <p>
+    La relativa mayor de una menor está una <strong>tercera menor por encima</strong> de su tónica
+    (equivale al <strong>tercer grado</strong> de la escala menor). La armadura de la menor es la de esa mayor.
+  </p>
+  <div class="cm-caja">
+    <p><strong>Pasos:</strong> subí una tercera menor desde la tónica → obtenés la relativa mayor → usá su armadura.</p>
+    <p class="cm-ejemplo">
+      Mi menor → tercera menor arriba: Sol → Sol mayor tiene 1♯ → <strong>Mi menor tiene 1♯ (Fa♯)</strong>.<br>
+      Do menor → Mi♭ mayor tiene 3♭ → <strong>Do menor tiene 3♭ (Si♭, Mi♭, La♭)</strong>.
+    </p>
+  </div>
+
+  
+  <h3>Tabla de armaduras menores</h3>
+  <div class="cm-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Alteraciones</th>
+          <th>Con sostenidos</th>
+          <th>Con bemoles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td colspan="2">La menor</td></tr>
+        <tr><td>1</td><td>Mi menor (1♯)</td><td>Re menor (1♭)</td></tr>
+        <tr><td>2</td><td>Si menor (2♯)</td><td>Sol menor (2♭)</td></tr>
+        <tr><td>3</td><td>Fa♯ menor (3♯)</td><td>Do menor (3♭)</td></tr>
+        <tr><td>4</td><td>Do♯ menor (4♯)</td><td>Fa menor (4♭)</td></tr>
+        <tr><td>5</td><td>Sol♯ menor (5♯)</td><td>Si♭ menor (5♭)</td></tr>
+        <tr><td>6</td><td>Re♯ menor (6♯)</td><td>Mi♭ menor (6♭)</td></tr>
+        <tr><td>7</td><td>La♯ menor (7♯)</td><td>La♭ menor (7♭)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    El orden de las alteraciones en la armadura es el mismo que en las mayores:
+    sostenidos <strong>Fa Do Sol Re La Mi Si</strong>; bemoles <strong>Si Mi La Re Sol Do Fa</strong>.
+  </p>
+
+  <h3>Importante: la armadura es la menor natural</h3>
+  <div class="cm-caja">
+    <p>
+      La armadura corresponde siempre a la escala <strong>menor natural</strong>. El séptimo grado elevado
+      (sensible de la menor armónica) y el sexto y séptimo elevados (menor melódica ascendente)
+      <strong>no van en la armadura</strong>: se escriben como alteraciones accidentales.
+    </p>
+    <p class="cm-ejemplo">
+      La menor armónica: La Si Do Re Mi Fa <strong>Sol♯</strong> La. La armadura queda vacía y el Sol♯ se escribe en el pentagrama.
+    </p>
+  </div>
+
+</section>
+<br>
   <div class="submenus">
 <a href="#arriba">Ir arriba</a>
 </div>
 
-
-</section>
 
 
 
